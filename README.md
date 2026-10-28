@@ -1,5 +1,7 @@
 # OAuth Path
 
+See [Notes to the hiring team](NOTES_TO_HIRING_TEAM.md) for a short project note.
+
 OAuth Path maps the provider approval journey for an OAuth app.
 Enter a provider to research its public setup, review, and scope documentation.
 Each guide separates agent-assisted research from work that needs a human.
