@@ -1,0 +1,24 @@
+{
+  "app_name":"Notion","website":"https://developers.notion.com/","slug":"notion","generated_at":"2026-10-28T00:00:00.000Z",
+  "difficulty":"Medium","difficulty_reason":"Notion documents a public OAuth flow and integration setup; listing and approval timing depends on current review requirements not established here.",
+  "time_estimate":{"best_case":"UNCERTAIN","typical":"UNCERTAIN","worst_case":"UNCERTAIN"},
+  "effort":"Create an integration in the developer portal, configure OAuth redirect URIs and capabilities, then test with a workspace before any public listing request.",
+  "prerequisites":["Notion developer account and integration configuration.","A public HTTPS redirect URI for deployed OAuth callbacks; confirm development options in current docs."],
+  "steps":[
+    {"title":"Create an integration","url":"https://www.notion.so/profile/integrations","instruction":"Create an integration and choose the capabilities and workspace access it needs.","who":"human must do"},
+    {"title":"Configure OAuth settings","url":"https://developers.notion.com/docs/authorization","instruction":"Set the redirect URI and use the documented authorization flow. Keep the client secret private.","who":"human must do"},
+    {"title":"Test access","url":"https://developers.notion.com/docs/authorization","instruction":"Authorize a test workspace and confirm only the expected pages and capabilities are accessible.","who":"human must do"},
+    {"title":"Check public distribution requirements","url":"https://developers.notion.com/","instruction":"Review current submission and listing requirements in Notion's integration portal before planning public distribution.","who":"agent can do"}
+  ],
+  "approval":{"review_needed":"UNCERTAIN for a public listing; current listing review requirements and timing should be confirmed in the developer portal.","triggers":"Public distribution, integration capabilities, and listing may have additional requirements; not fully established from the cited authorization guide.","checks":"UNCERTAIN","slow_factors":"No reliable review timeline verified."},
+  "blockers":[{"problem":"Redirect URI mismatch","fix":"Check that the callback in the authorization request matches the integration's configured redirect URI."},{"problem":"Integration cannot see a page","fix":"Confirm the user has shared the page with the integration and that the requested capabilities are sufficient."}],
+  "scopes":[{"name":"Integration capabilities","level":"Capability-based","why":"Select only the access your integration needs; exact public review implications depend on current Notion policy."}],
+  "redirect_rules":"Use the configured redirect URI for the integration and confirm current exact-match and development URL rules in Notion's authorization documentation.",
+  "agent_handoff":"An agent can read the authorization docs and prepare settings and test cases. A human must log in, create the integration, set credentials and workspace access, and submit any distribution review.",
+  "next_action":"Create a private test integration and validate its requested capabilities and callback before exploring public listing.",
+  "evidence":[
+    {"claim":"Notion has an OAuth authorization flow documented for integrations.","label":"SOURCED","source_url":"https://developers.notion.com/docs/authorization"},
+    {"claim":"Public listing approval requirements and review time for this integration.","label":"UNCERTAIN"},
+    {"claim":"An integration needs to be granted access to relevant pages to work on them.","label":"SOURCED","source_url":"https://developers.notion.com/docs/authorization"}
+  ],"overall_confidence":"Medium"
+}

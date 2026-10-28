@@ -1,0 +1,10 @@
+'use client';
+import { useState } from 'react';
+import { ArrowUpRight, LoaderCircle } from 'lucide-react';
+export default function SearchForm() {
+ const [value,setValue]=useState(''); const [busy,setBusy]=useState(false); const [message,setMessage]=useState('');
+ async function submit(e:React.FormEvent){e.preventDefault();if(!value.trim())return;setBusy(true);setMessage('Starting research…');
+ try { const response=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({app:value.trim()})}); if(!response.ok){const data=await response.json();throw new Error(data.error||'Research could not be completed.');} const reader=response.body?.getReader(); if(!reader)throw new Error('No response stream.');const decoder=new TextDecoder();let buffer='';while(true){const {value:chunk,done}=await reader.read();if(done)break;buffer+=decoder.decode(chunk,{stream:true});const lines=buffer.split('\n');buffer=lines.pop()||'';for(const line of lines){if(!line.startsWith('data: '))continue;const data=JSON.parse(line.slice(6));if(data.progress)setMessage(data.progress);if(data.error)throw new Error(data.error);if(data.slug)window.location.href=`/guide/${data.slug}`;}} } catch(err){setMessage(err instanceof Error?err.message:'Something went wrong.');setBusy(false);}
+ }
+ return <form onSubmit={submit} className="card flex flex-col gap-2 p-2 sm:flex-row sm:items-center"><input aria-label="App or provider name" className="min-w-0 flex-1 bg-transparent px-4 py-3 text-base outline-none placeholder:text-[#93978d]" placeholder="Enter an app or provider (e.g. Slack, Gmail…)" value={value} onChange={e=>setValue(e.target.value)} disabled={busy}/><button className="btn flex items-center justify-center gap-2 bg-ink text-white disabled:opacity-60" disabled={busy}>{busy?<><LoaderCircle className="animate-spin" size={16}/> Researching</>:<>Map my path <ArrowUpRight size={16}/></>}</button>{message&&<p className="basis-full px-4 pb-2 text-sm text-moss">{message}</p>}</form>
+}

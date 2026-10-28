@@ -1,0 +1,25 @@
+{
+  "app_name":"Slack","website":"https://api.slack.com/","slug":"slack","generated_at":"2026-10-28T00:00:00.000Z",
+  "difficulty":"Easy","difficulty_reason":"The OAuth installation flow is documented and Slack describes creating an app in a development workspace; public distribution and scopes can add requirements.",
+  "time_estimate":{"best_case":"UNCERTAIN","typical":"UNCERTAIN","worst_case":"UNCERTAIN"},
+  "effort":"Create an app in Slack's developer console, set the minimum needed scopes, add an HTTPS redirect URL, and test installation. Marketplace review timing is not established here.",
+  "prerequisites":["A Slack account and development workspace are needed to create and test an app (confirm current console requirements).","An HTTPS redirect URL is required for OAuth."],
+  "steps":[
+    {"title":"Create a Slack app","url":"https://api.slack.com/apps","instruction":"Create an app and select a development workspace. The app is not created by OAuth Path.","who":"human must do"},
+    {"title":"Choose permissions","url":"https://api.slack.com/authentication/oauth-v2","instruction":"Request only the bot or user scopes your integration needs. Avoid mixing Sign in with Slack scopes and regular app scopes in one flow.","who":"agent can do"},
+    {"title":"Set the redirect URL","url":"https://api.slack.com/authentication/oauth-v2","instruction":"Add an HTTPS redirect URL in OAuth & Permissions. Ensure the runtime redirect URI matches the configured URL rules.","who":"human must do"},
+    {"title":"Test installation","url":"https://api.slack.com/authentication/oauth-v2","instruction":"Install to a development workspace and confirm the requested scopes and callback handling.","who":"human must do"}
+  ],
+  "approval":{"review_needed":"UNCERTAIN for your distribution plan. Slack documents app distribution and marketplace features, but this guide does not establish a general review requirement.","triggers":"Marketplace listing or particular scopes/features may have additional requirements; confirm in the current Slack console.","checks":"UNCERTAIN","slow_factors":"No reliable review timeline was found in the cited OAuth setup page."},
+  "blockers":[{"problem":"bad_redirect_uri","fix":"Use HTTPS and make the callback match the configured redirect URL rules. Keep the URI consistent during authorization and token exchange."},{"problem":"invalid_scope","fix":"Check scope spelling and avoid combining incompatible Sign in with Slack scopes with regular app scopes."}],
+  "scopes":[{"name":"Requested OAuth scopes","level":"Varies by scope","why":"Scopes define the access granted. Request only the minimum needed and check whether a scope has additional restrictions."}],
+  "redirect_rules":"Slack's OAuth docs require HTTPS. A requested redirect URI must match or be a subdirectory of a configured redirect URL; fragments are not allowed.",
+  "agent_handoff":"An agent can read the public docs, draft scope and redirect settings, and help debug errors. A human must sign in, create the app, choose its workspace, manage secrets, and submit any provider review.",
+  "next_action":"Open Slack's app console and create a development app so you can inspect its OAuth & Permissions settings.",
+  "evidence":[
+    {"claim":"Slack documents creating an app and selecting a development workspace.","label":"SOURCED","source_url":"https://api.slack.com/authentication/sign-in-with-slack"},
+    {"claim":"Slack OAuth redirect URLs must use HTTPS; configured URL matching rules apply.","label":"SOURCED","source_url":"https://api.slack.com/authentication/oauth-v2"},
+    {"claim":"Slack OAuth requests scopes and exchanges a temporary authorization code after user approval.","label":"SOURCED","source_url":"https://api.slack.com/authentication/oauth-v2"},
+    {"claim":"Specific marketplace review timing for this app and integration.","label":"UNCERTAIN"}
+  ],"overall_confidence":"Medium"
+}

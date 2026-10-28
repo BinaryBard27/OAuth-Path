@@ -1,0 +1,24 @@
+{
+  "app_name":"LinkedIn","website":"https://developer.linkedin.com/","slug":"linkedin","generated_at":"2026-10-28T00:00:00.000Z",
+  "difficulty":"Hard","difficulty_reason":"Only specified open permissions are self-service; most other permissions and partner programs require explicit LinkedIn approval.",
+  "time_estimate":{"best_case":"UNCERTAIN","typical":"UNCERTAIN","worst_case":"UNCERTAIN"},
+  "effort":"Create a developer application, add an available product, configure HTTPS callback URLs, then request access to gated products or permissions when the use case requires them.",
+  "prerequisites":["LinkedIn developer application.","An HTTPS callback URL for the 3-legged OAuth flow.","Some API products require explicit approval or partner program access."],
+  "steps":[
+    {"title":"Create a developer app","url":"https://www.linkedin.com/developers/apps","instruction":"Create an app in the LinkedIn Developer Portal and review the products available to it.","who":"human must do"},
+    {"title":"Check whether your product is open","url":"https://learn.microsoft.com/linkedin/shared/authentication/getting-access","instruction":"LinkedIn lists OpenID Connect profile/email and Share on LinkedIn w_member_social as open permissions; other products may require approval.","who":"agent can do"},
+    {"title":"Configure OAuth callback","url":"https://learn.microsoft.com/linkedin/shared/authentication/authorization-code-flow","instruction":"In the Auth tab add an absolute HTTPS callback URL with no fragment.","who":"human must do"},
+    {"title":"Request gated access if needed","url":"https://learn.microsoft.com/linkedin/shared/authentication/getting-access","instruction":"Use the developer portal product request flow and provide the requested business/use-case information. Approval is not guaranteed by this guide.","who":"human must do"}
+  ],
+  "approval":{"review_needed":"Most permissions and partner programs require explicit LinkedIn approval. Open Permissions are listed as available to all developers.","triggers":"Products such as Advertising API and specialized partner APIs require approval or partner access.","checks":"Access eligibility depends on the product/program and permission. Exact review rubric is not established in the cited overview.","slow_factors":"No general review duration was established in the cited official pages."},
+  "blockers":[{"problem":"The product you need is not available in your app","fix":"Check its access program and submit the product request in the developer portal; some programs require explicit approval."},{"problem":"OAuth callback is rejected","fix":"Use an absolute HTTPS URL registered under the app's Auth tab; remove URL fragments."}],
+  "scopes":[{"name":"profile, email, w_member_social","level":"Open permissions","why":"Listed by LinkedIn as open permissions available to all developers via self-service products."},{"name":"Advertising API and other partner permissions","level":"Gated","why":"LinkedIn says Advertising API access requires approval; other listed permissions/programs may require approval."}],
+  "redirect_rules":"LinkedIn's 3-legged OAuth documentation requires an absolute HTTPS callback URL. URL parameters are ignored and fragments are invalid.",
+  "agent_handoff":"An agent can map a use case to published products and prepare a request draft. A human must create the app, sign in, provide company/use-case information, and request or negotiate partner access.",
+  "next_action":"Match your planned feature to LinkedIn's product and permission list; determine whether an open permission covers it before investing in a gated API.",
+  "evidence":[
+    {"claim":"LinkedIn says most permissions/programs require explicit approval and identifies open permissions.","label":"SOURCED","source_url":"https://learn.microsoft.com/linkedin/shared/authentication/getting-access"},
+    {"claim":"3-legged OAuth callback URLs must be absolute HTTPS URLs; parameters are ignored and fragments are invalid.","label":"SOURCED","source_url":"https://learn.microsoft.com/linkedin/shared/authentication/authorization-code-flow"},
+    {"claim":"General review timeline and likelihood of acceptance for an unspecified API request.","label":"UNCERTAIN"}
+  ],"overall_confidence":"High"
+}
